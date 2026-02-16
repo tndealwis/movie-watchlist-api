@@ -1,1 +1,19 @@
 import { PrismaClient } from "@prisma/client";
+const primsa = new PrismaClient({
+  log:
+    process.env.NODE_ENV === "development"
+      ? ["query", "error", "warn"]
+      : ["error"],
+});
+
+const connectDB = async () => {
+  try {
+    await primsa.$connect();
+    console.log("DB Connected via Prisma");
+  } catch (error) {
+    console.error(`Database connection error occured: ${error.message}`);
+    process.exit(1);
+  }
+};
+
+const disconnectDB = async () => {};
